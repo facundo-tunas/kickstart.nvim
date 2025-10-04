@@ -2,9 +2,12 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
+    event = 'VeryLazy', -- Load after startup
     config = function()
       local hooks = require 'ibl.hooks'
-      local catppuccin = require('catppuccin.palettes').get_palette()
+      local flavor = vim.g.catppuccin_flavour or require('catppuccin').flavour
+      vim.notify(flavor, vim.log.levels.INFO)
+      local catppuccin = require('catppuccin.palettes').get_palette(flavor)
 
       hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
         -- Normal indent guides
